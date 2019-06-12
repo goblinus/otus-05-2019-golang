@@ -2,12 +2,15 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
 	"time"
-
+	
 	"github.com/beevik/ntp"
 )
 
 const TimeSyncServer = "ntp2.stratum2.ru"
+const ErrorCode = 1
 
 var MMap = map[time.Month]string{
 	time.January:   "Января",
@@ -27,10 +30,11 @@ var MMap = map[time.Month]string{
 func main() {
 
 	ntpResponse, err := ntp.Query(TimeSyncServer)
+	logger := log.New(os.Stderr, "", 0)
 
 	if err != nil {
-		fmt.Println(err)
-		return
+		logger.Println(err)
+		os.Exit(ErrorCode)
 	}
 
 	dt := ntpResponse.Time
