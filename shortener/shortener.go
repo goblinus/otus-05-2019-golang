@@ -1,4 +1,4 @@
-package shorterner
+package shortener
 
 import(
 	"regexp"
