@@ -1,11 +1,11 @@
 package shortener
 
 import(
-	"regexp"
-	_ "fmt"
+	"fmt"
 	"math/rand"
-	"time"
+	"regexp"
 	"strings"
+	"time"
 )
 
 const alphabet = "123456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ" 
@@ -56,15 +56,20 @@ func (r *record) Shorten(url string) string {
 	}
 
 	r.shortLink = string(result)
-	return r.shortLink
+	return fmt.Sprintf("%s/%s", r.base, r.shortLink)
 }
 
 func (r *record) Resolve(url string) string {
 	if EqualValues == strings.Compare(r.shortLink, url) {
-		return r.rawLink
+		return fmt.Sprintf("%s/%s", r.base, r.rawLink)
 	}
 
 	return ""
+}
+
+//Возвращает "чистый" короткий код, без домена
+func (r *record) GetShortLink() string {
+	return r.shortLink
 }
 
 //Парсим url на составляющие
