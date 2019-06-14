@@ -1,9 +1,9 @@
-package shorterner
+package shortener
 
 import (
-	"testing"
+	"fmt"
 	"strings"
-	_ "fmt"
+	"testing"
 )
 
 const base = "http://www.mail.ru"
@@ -14,8 +14,8 @@ func TestShorterner(t *testing.T) {
 	record := CreateRecord()
 	link := record.Shorten(fullLink)
 
-	if EqualValues != strings.Compare(link, record.shortLink) {
-		t.Errorf("Ссылки (та, которая возвращена методом Shorten и record.shortLink) не идентичны")
+	if EqualValues != strings.Compare(link, fmt.Sprintf("%s/%s", record.base, record.shortLink)) {
+		t.Errorf("Ссылки (та, которая возвращена методом Shorten, и record.shortLink) не идентичны")
 	}
 
 	if EqualValues != strings.Compare(base, record.base) {
